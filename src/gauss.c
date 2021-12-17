@@ -12,6 +12,7 @@ int eliminate(Matrix *mat, Matrix *b){
 		int r = mat->r;
 		double **macierz = mat->data;
 		double zmiana[c];
+		double *macierzb = b->data;
 
 		int blad = 0;
 		
@@ -23,7 +24,7 @@ int eliminate(Matrix *mat, Matrix *b){
 
 		
 		for(int i = 0; i < r; i++)		//sprawdzenie czy na przekątnej nie ma zer
-		{
+		{								//a jeżeli są to zmiana kolejności
 			if (macierz[i][i] == 0)
 			{
 				blad = 1;
@@ -37,6 +38,11 @@ int eliminate(Matrix *mat, Matrix *b){
 							macierz[i][k] = macierz[j][k];
 							macierz[j][k] = zmiana[k];
 						}
+
+						zmiana[k] = macierzb[i];
+						macierzb[i] = macierzb[j];
+						macierzb[j] = zmiana[k]; 
+						
 						blad = 0;
 					}
 					if (blad == 1)
@@ -57,16 +63,17 @@ int eliminate(Matrix *mat, Matrix *b){
 		{
 			for(int j = i + 1; j < c; j++)
 			{
+				if (macierz[j][i] == 0)
+					continue;
+
 				double q = macierz[j][i]/macierz[i][i];
 
 				for(int k = 0; k < c; k++)
 				{
 					macierz[j][k] -= q*macierz[i][k];
 				}
-				
 
-
-				
+				macierzb[j] -= q*macierzb[i];
 
 			}
 
