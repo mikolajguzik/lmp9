@@ -10,11 +10,8 @@ int eliminate(Matrix *mat, Matrix *b){
 
 		int c = mat->c;
 		int r = mat->r;
-		double zmiana;
-
-		int blad = 0;
 		
-		if(r != c)
+/**		if(r != c)
 		{
 			printf("Kod dziala tylko dla macierzy kwadratowych\n");
 			exit (1);
@@ -22,7 +19,12 @@ int eliminate(Matrix *mat, Matrix *b){
 
 		
 		for(int i = 0; i < r; i++)		//sprawdzenie czy na przekątnej nie ma zer
-		{								//a jeżeli są to zmiana kolejności
+		{			
+			
+			double zmiana;
+
+			int blad = 0;
+								//a jeżeli są to zmiana kolejności
 			if (mat->data[i][i] == 0)
 			{
 				blad = 1;
@@ -55,6 +57,64 @@ int eliminate(Matrix *mat, Matrix *b){
 			}
 			
 		}
+*/
+
+
+
+
+	int max = 0;
+	int row;
+	double zmiana;
+
+	for (int i = 0; i < c; i++)
+	{
+
+		row = i;
+
+		for (int j = i; j < r; j++)
+		{
+			if (max < mat->data[j][i])
+			{
+				max = mat->data[j][i];
+				row = j;
+			}
+
+		}
+
+		if (row != i)
+		{
+			for (int j = 0; j < mat->c; j++)
+			{
+				zmiana = mat->data[row][j];
+				mat->data[row][j] = mat->data[i][j];
+				mat->data[i][j] = zmiana;
+			}
+
+			zmiana = b->data[row][0];
+			b->data[row][0] = b->data[i][0];
+			b->data[i][0] = zmiana;
+		}
+
+		max = 0;
+
+
+	}
+
+	if (r > c)
+		r = c;
+	if (c > r)
+		c = r;
+
+
+	for (int i = 0; i < r; i++)
+	{
+		if (mat->data[i][i] == 0)
+		{
+			printf("Macierz osobliwa :(\n");
+			return 1;
+		}
+
+	}
 
 
 		for ( int i = 0; i < r -1; i++)
@@ -66,7 +126,7 @@ int eliminate(Matrix *mat, Matrix *b){
 
 				double q = mat->data[j][i]/mat->data[i][i];
 
-				for(int k = 0; k < c; k++)
+				for(int k = 0; k < mat->c; k++)
 				{
 					mat->data[j][k] -= q*mat->data[i][k];
 				}
