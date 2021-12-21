@@ -12,29 +12,46 @@ int main(int argc, char ** argv) {
 	Matrix * b = readFromFile(argv[2]);
 	Matrix * x;
 
-	if (A == NULL) return -1;
-	if (b == NULL) return -2;
-	
-	for (int i = 0; i<A->r; i++)
+	FILE * file_1 =  fopen(argv[1],"r");
+	FILE * file_2 =  fopen(argv[2],"r");
+	int check;
+
+	while ( (check = fgetc(file_1)) != EOF)
 	{
-		for (int j = 0; j < A->c; j++)
+		if (isspace(check) || check == '.' || check == '-')
+			continue;
+		
+		else if (isdigit(check))
+			continue;
+
+		else
 		{
-			if( isdigit(A->data[i][j]) )
-			{
-				fprintf(stderr, "dane w niewłaściwym formacie\n");
-				return 1;
-			}
+			printf("Zostały podane nieprawidłowe dane :(\n %c - w pliku %s\n\n", check, argv[1]);
+			exit (1);
 		}
 	}
 
-	for (int i = 0; i<b->r; i++)
+
+
+	while ( (check = fgetc(file_2)) != EOF)
 	{
-		if( isdigit(b->data[i][0]) )
+		if (isspace(check) || check == '.' || check == '-')
+			continue;
+		
+		else if (isdigit(check))
+			continue;
+
+		else
 		{
-			fprintf(stderr, "dane w niewłaściwym formacie\n");
-			return 1;
+			printf("Zostały podane nieprawidłowe dane :(\n %c - w pliku %s\n\n", check, argv[1]);
+			exit (1);
 		}
 	}
+	
+
+	if (A == NULL) return -1;
+	if (b == NULL) return -2;
+	
 
 	printToScreen(A);
 	printToScreen(b);

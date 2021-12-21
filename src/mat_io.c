@@ -14,6 +14,7 @@ Matrix * readFromFile(char * fname) {
 
 				if (fin != NULL) {
 					fscanf(fin,"%d %d",&r,&c);
+					
 					mat = createMatrix(r,c);
 					if (mat != NULL) {
 						for (ir = 0; ir < r; ir++) 
