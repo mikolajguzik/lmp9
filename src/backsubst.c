@@ -10,7 +10,7 @@ int  backsubst(Matrix *x, Matrix *mat, Matrix *b) {
 
 	if(mat->c != b->r)
 	{
-		fprintf(stderr, "błąd nieprawiłowych rozmiarow macierzy");
+		//fprintf(stderr, "błąd nieprawiłowych rozmiarow macierzy");
 		return 2;
 	}
 
@@ -28,7 +28,7 @@ int  backsubst(Matrix *x, Matrix *mat, Matrix *b) {
 	{
 		if(mat->data[i][i] == 0)
 		{
-			fprintf(stderr, "element na diagonali rowny 0");
+			//fprintf(stderr, "element na diagonali rowny 0");
 			return 1;
 		}
 	}

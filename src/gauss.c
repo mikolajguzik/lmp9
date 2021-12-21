@@ -84,8 +84,5 @@ int eliminate(Matrix *mat, Matrix *b){
 			}
 
 		}
-
-
-		return 0;
+	return 0;
 }
-
